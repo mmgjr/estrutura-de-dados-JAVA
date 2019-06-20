@@ -53,13 +53,45 @@ public class Lista<T> {
 		this.leng++;
 		return true;
 	}
+	public void limpar() {
+		//op 1
+		this.elements = (T[])new Object[this.elements.length];
+		/*
+		//op 2
+		this.leng = 0;
+		//op 3	
+		for(int i=0;i<this.leng;i++) {
+			this.elements[i] = null;
+		}
+		this.leng=0;
+		*/
+	}
 	
-	public Object busca(int position) {
+	public T obtem(int pos) {
+		return this.busca(pos);
+	}
+	
+	public T busca(int position) {
 		if(!(position >= 0 && position < leng)) {
 			throw new IllegalArgumentException("Posição inválida!");
 		}
 		return this.elements[position];
 	}
+	
+	public boolean contem(T ele) {
+		return busca(ele) > - 1;
+	}
+	public int ultimoIndece(T ele) {
+		
+		for (int i = this.leng-1; i >= 0; i--) {
+			if(this.elements[i].equals(ele)) {
+				return i;
+				
+			}
+		}
+		return -1;
+	}
+	
 	
 	public int busca(T ele) {
 		for (int i = 0; i < leng; i++) {
@@ -78,6 +110,14 @@ public class Lista<T> {
 			this.elements[i] = this.elements[i+1];
 		}
 		this.leng--;
+	}
+	
+	public void remove(T ele) {
+		 int pos = this.busca(ele);
+		if(pos > -1) {
+			this.remove(pos);
+		}	
+		
 	}
 	
 	public int tamanho() {
